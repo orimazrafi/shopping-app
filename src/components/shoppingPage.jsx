@@ -16,7 +16,9 @@ const schema = {
   quantinty: Joi.number()
     .min(1)
     .max(1000)
-    .required()
+    .required(),
+  index: Joi.number(),
+  isEdit: Joi.boolean()
 };
 
 class ShoppingPage extends Component {
@@ -48,7 +50,12 @@ class ShoppingPage extends Component {
   };
 
   handleClose = () => {
-    this.setState({ show: false });
+    const product = {
+      name: '',
+      price: '',
+      quantinty: ''
+    };
+    this.setState({ show: false, product });
   };
 
   handleShow = () => {
