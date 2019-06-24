@@ -21,6 +21,12 @@ const ShoppingTable = props => {
             <td>{item.price * item.quantinty}</td>
             <td>
               <button
+                className='btn btn-sm btn-secondary'
+                onClick={() => props.onEdit(item, index)}
+              >
+                Edit
+              </button>
+              <button
                 className='btn btn-sm btn-danger'
                 onClick={() => props.handleDelete(item)}
               >

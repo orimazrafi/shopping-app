@@ -14,6 +14,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         items: [action.product, ...state.items]
       };
+    case 'EDIT':
+      let product = {
+        name: action.product.name,
+        price: action.product.price,
+        quantinty: action.product.quantinty
+      };
+      return {
+        ...state,
+        items: [
+          ...state.items.slice(0, action.product.index),
+          product,
+          ...state.items.slice(action.product.index + 1)
+        ]
+      };
     default:
       return state;
   }

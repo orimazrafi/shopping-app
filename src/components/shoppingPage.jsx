@@ -36,6 +36,13 @@ class ShoppingPage extends Component {
   handleShow = () => {
     this.setState({ show: true });
   };
+  handleEdit = (item, index) => {
+    const product = item;
+    product.isEdit = true;
+    product.index = index;
+    this.setState({ show: true, product });
+    // handddd();
+  };
   render() {
     return (
       <div>
@@ -56,38 +63,41 @@ class ShoppingPage extends Component {
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div className='form-group'>
-                <label>
-                  Name:
+              <div className='form-group row'>
+                <label className='col-sm-2 col-form-label'>Name:</label>
+                <div className='col-sm-10'>
                   <input
+                    className='form-control'
                     type='text'
                     value={this.state.product.name}
                     onChange={this.handleChange}
                     name='name'
                   />
-                </label>
+                </div>
               </div>
-              <div className='form-group'>
-                <label>
-                  Price:
+              <div className='form-group row'>
+                <label className='col-sm-2 col-form-label'>Price:</label>
+                <div className='col-sm-10'>
                   <input
                     type='number'
+                    className='form-control'
                     value={this.state.product.price}
                     onChange={this.handleChange}
                     name='price'
                   />
-                </label>
+                </div>
               </div>
-              <div className='form-group'>
-                <label>
-                  Quantinty:
+              <div className='form-group row'>
+                <label className='col-sm-2 col-form-label'>Quantinty:</label>
+                <div className='col-sm-10'>
                   <input
                     type='number'
+                    className='form-control'
                     value={this.state.product.quantinty}
                     onChange={this.handleChange}
                     name='quantinty'
                   />
-                </label>
+                </div>
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -104,7 +114,7 @@ class ShoppingPage extends Component {
           </form>
         </Modal>
 
-        <ShoppingTable store={store} />
+        <ShoppingTable store={store} onEdit={this.handleEdit} />
       </div>
     );
   }
@@ -119,11 +129,17 @@ function mapStateToProps(state) {
 function dispatchStateToProps(dispatch) {
   return {
     handleAdd: product => {
-      const action = { type: 'ADD', product };
+      console.log(product);
+      let action;
+      action = product.isEdit
+        ? { type: 'EDIT', product }
+        : { type: 'ADD', product };
+      //   else  const action =
       dispatch(action);
     }
   };
 }
+// function handddd() {}
 
 export default connect(
   mapStateToProps,
