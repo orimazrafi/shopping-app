@@ -8,7 +8,9 @@ import store from './store/index';
 function App() {
   return (
     <div className='App'>
-      <ShoppingPage store={store} />
+      <div className='container'>
+        <ShoppingPage store={store} />
+      </div>
     </div>
   );
 }

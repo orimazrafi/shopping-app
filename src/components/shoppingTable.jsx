@@ -9,7 +9,7 @@ const ShoppingTable = props => {
           <th scope='col'>Price</th>
           <th scope='col'>Quantinty</th>
           <th scope='col'>Total</th>
-          <th scope='col' />
+          <th scope='col'>There are {props.items.length} items.</th>
         </tr>
       </thead>
       <tbody>
@@ -21,13 +21,13 @@ const ShoppingTable = props => {
             <td>{item.price * item.quantinty}</td>
             <td>
               <button
-                className='btn btn-sm btn-secondary'
+                className='btn btn-sm btn-secondary mr-4'
                 onClick={() => props.onEdit(item, index)}
               >
-                Edit
+                Update
               </button>
               <button
-                className='btn btn-sm btn-danger'
+                className='btn btn-sm btn-danger ml-4'
                 onClick={() => props.handleDelete(item)}
               >
                 Delete

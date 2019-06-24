@@ -4,6 +4,20 @@ import store from '../store/index';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
+import Joi from '@hapi/joi';
+const schema = {
+  name: Joi.string()
+    .min(3)
+    .required(),
+  price: Joi.number()
+    .min(1)
+    .max(1000)
+    .required(),
+  quantinty: Joi.number()
+    .min(1)
+    .max(1000)
+    .required()
+};
 
 class ShoppingPage extends Component {
   state = {
@@ -28,6 +42,10 @@ class ShoppingPage extends Component {
     };
     this.setState({ product, show: false });
   };
+  validate = () => {
+    const { error } = Joi.validate(this.state.product, schema);
+    if (error) return error;
+  };
 
   handleClose = () => {
     this.setState({ show: false });
@@ -41,7 +59,6 @@ class ShoppingPage extends Component {
     product.isEdit = true;
     product.index = index;
     this.setState({ show: true, product });
-    // handddd();
   };
   render() {
     return (
@@ -53,7 +70,7 @@ class ShoppingPage extends Component {
           you'r shooping cart
         </h5>
 
-        <Button variant='primary' onClick={this.handleShow}>
+        <Button variant='primary m-2' onClick={this.handleShow}>
           Add Product
         </Button>
 
@@ -106,6 +123,7 @@ class ShoppingPage extends Component {
               </Button>
               <button
                 className='btn btn-sm btn-primary'
+                disabled={this.validate()}
                 onClick={() => this.props.handleAdd(this.state.product)}
               >
                 Save Changes
@@ -129,18 +147,13 @@ function mapStateToProps(state) {
 function dispatchStateToProps(dispatch) {
   return {
     handleAdd: product => {
-      console.log(product);
-      let action;
-      action = product.isEdit
+      let action = product.isEdit
         ? { type: 'EDIT', product }
         : { type: 'ADD', product };
-      //   else  const action =
       dispatch(action);
     }
   };
 }
-// function handddd() {}
-
 export default connect(
   mapStateToProps,
   dispatchStateToProps
