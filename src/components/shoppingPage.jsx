@@ -69,19 +69,24 @@ class ShoppingPage extends Component {
   };
   render() {
     return (
-      <div>
-        <h2>Shooping.com this is how we shop today.</h2>
+      <div className='col-12 col-lg-10 shopping-page-container'>
+        <h2 className='text-center'>Shooping.com this is how we shop today.</h2>
 
-        <h5>
+        <h5 className='text-center'>
           <i className='fa fa-shopping-cart mr-4' />
           you'r shooping cart
         </h5>
+        <div className='text-center'>
+          <Button variant='primary m-2' onClick={this.handleShow}>
+            Add Product
+          </Button>
+        </div>
 
-        <Button variant='primary m-2' onClick={this.handleShow}>
-          Add Product
-        </Button>
-
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          className='col-8 modal-container'
+        >
           <form onSubmit={this.handleSubmit}>
             <Modal.Header closeButton>
               <Modal.Title>Modal heading</Modal.Title>
